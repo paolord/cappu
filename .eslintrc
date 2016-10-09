@@ -31,7 +31,8 @@
     "no-loop-func": "warn",
     "object-shorthand": "error",
     "one-var-declaration-per-line": "warn",
-    "comma-dangle": "warn",
+    "comma-dangle": ["warn", "always"],
+    "padded-blocks": ["warn", "never"],
     "no-shadow": "warn",
     "camelcase": "warn"
   },

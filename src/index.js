@@ -1,86 +1,47 @@
 'use strict';
 
-// const spawn = require('child_process').spawn;
-const exec = require('child_process').exec;
-const Server = require('./server');
+const spawn = require('child_process').spawn;
+const growl = require('growl');
 // const parser = require('./parser/mocha');
-const http = require('http');
 
 exports.cappu = (options) => {
+  const main = options.cmd;
   const args = options.args;
   let passing = '';
   let failing = '';
   let pending = '';
-  // const outputLines = [];
 
+  const cmd = spawn(main, args);
 
-  require('dns').lookup(require('os').hostname(), (err, hostname, fam) => {
-    console.log('Cappu running on: '+hostname);
-    const server = new Server({
-      hostname
-    });
+  cmd.stdout.on('data', (out) => {
+    // outputLines.push(data);
+    const data = `${out}`;
+    console.log(data);
+    if(data.indexOf('passing') !== -1 ||
+        data.indexOf('failing') !== -1 ||
+        data.indexOf('pending') !== -1) {
+      passing = data.match(/(\d+ passing)/i);
+      console.log(passing[0]);
+      failing = data.match(/(\d+ failing)/i);
+      console.log(failing[0]);
+      pending = data.match(/(\d+ pending)/i);
+      console.log(pending[0]);
 
-    process.env['CAPPU_HOSTNAME'] = hostname;
-    // process.env['CAPPU_PORT'] = 31213;
+      const results = [
+        passing[0] || '',
+        failing[0] || '',
+        pending[0] || '',
+      ].join('\n');
 
-    // const cmd = spawn(args.join(' '));
-    const cmd = exec(args.join(' '), (error, stdout, stderr) => {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      if (error !== null) {
-        console.log('exec error: ' + error);
-      }
-    });
-    // cmd.stdout.on('data', (data) => {
-    //   // outputLines.push(data);
-    //   if(data.indexOf('passing') !== -1) {
-    //     passing = data.match(/(\d passing)/i);
-    //   } else if(data.indexOf('failing') !== -1) {
-    //     failing = data.match(/(\d failing)/i);
-    //   } else if(data.indexOf('pending') !== -1) {
-    //     pending = data.match(/(\d pending)/i);
-    //   }
-    // });
-
-    // cmd.stderr.on('data', (data) => {
-    //   // outputLines.push(data);
-    //   if(data.indexOf('passing') !== -1) {
-    //     passing = data.match(/(\d passing)/i);
-    //   } else if(data.indexOf('failing') !== -1) {
-    //     failing = data.match(/(\d failing)/i);
-    //   } else if(data.indexOf('pending') !== -1) {
-    //     pending = data.match(/(\d pending)/i);
-    //   }
-    // });
-
-    // cmd.on('close', (code) => {
-    //   console.log(`child process exited with code ${code}`);
-    // });
-
-    server.start(() => {
-      // return parsed stdout here
-      // return parser(outputLines);
-      return {
-        passing,
-        failing,
-        pending
-      };
-    });
+      growl(`Test Complete:\n${results}`);
+    }
   });
-};
 
-exports.notify = () => {
-  function shutdown() {
-    const cappuHost = process.env.CAPPU_HOSTNAME;
-    const host = `${cappuHost}:31213`;
-    // signal the web server at the host OS
-    http.get({
-      host
-    });
-  }
+  // cmd.stderr.on('data', (out) => {
+  //   // outputLines.push(data);
+  // });
 
-  process
-    .once('exit', shutdown)
-    .once('SIGINT', shutdown)
-    .once('SIGTERM', shutdown);
+  cmd.on('close', (code) => {
+    console.log(`Exited with code ${code}`);
+  });
 };

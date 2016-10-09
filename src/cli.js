@@ -2,9 +2,11 @@
 
 module.exports = function(argv) {
 
-  const cmd = argv.splice(2, argv.length);
-  
+  const cmd = argv[2];
+  const args = argv.splice(3, argv.length);
+
   return {
-    args: cmd
+    cmd,
+    args
   };
 };
