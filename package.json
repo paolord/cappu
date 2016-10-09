@@ -1,7 +1,7 @@
 {
   "name": "cappu",
-  "version": "0.1.0",
-  "description": "Trigger desktop notifications from any testing frameworks",
+  "version": "0.1.1",
+  "description": "Trigger desktop notifications from JS testing frameworks",
   "main": "index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
