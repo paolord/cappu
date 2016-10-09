@@ -1,7 +1,7 @@
 {
   "name": "cappu",
   "version": "0.0.1",
-  "description": "Trigger desktop notifications from inside Docker containers, based on growl",
+  "description": "Trigger desktop notifications from Mocha.js tests inside Docker containers, based on growl",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
