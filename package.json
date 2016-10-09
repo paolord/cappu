@@ -4,6 +4,8 @@
   "description": "Trigger desktop notifications from Mocha.js tests inside Docker containers, based on growl",
   "main": "index.js",
   "scripts": {
+    "build": "babel src --out-dir lib",
+    "pretest": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
