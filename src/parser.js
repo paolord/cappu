@@ -45,17 +45,17 @@ module.exports = (data, cb) => {
     }
 
     /* code 1: mocha tap reporter */
-    if (code === 0) {
-      if (data.indexOf('passing') !== -1 ||
-          data.indexOf('failing') !== -1 ||
-          data.indexOf('pending') !== -1) {
-        tests = data.match(/(# tests \d+)/i)[2] || '';
-        pass = data.match(/(# pass \d+)/i)[2] || '';
-        fail = data.match(/(# fail \d+)/i)[2] || '';
+    if (code === 1) {
+      if (data.indexOf('# tests') !== -1 ||
+          data.indexOf('# pass') !== -1 ||
+          data.indexOf('# fail') !== -1) {
+        tests = data.match(/(\# tests \d+)/i)[0] || '0';
+        pass = data.match(/(\# pass \d+)/i)[0] || '0';
+        fail = data.match(/(\# fail \d+)/i)[0] || '0';
         cb([
-          tests,
-          pass,
-          fail,
+          `Test: ${tests.split(' ')[2]}`,
+          `Pass: ${pass.split(' ')[2]}`,
+          `Fail: ${fail.split(' ')[2]}`,
         ].join('\n'));
       }
     }
