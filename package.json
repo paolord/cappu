@@ -1,6 +1,6 @@
 {
   "name": "cappu",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Trigger desktop notifications from Mocha.js tests inside Docker containers, based on growl",
   "main": "index.js",
   "scripts": {
