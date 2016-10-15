@@ -14,13 +14,13 @@ let fail;
 let tests;
 
 function returnIfNotEmpty(list, index, d) {
-  if (typeof list !== 'undefined' && list !== null) {
+  if (typeof list === 'undefined' || list === null) {
     return '';
-  }
-  if (typeof list[index] !== 'undefined' && list[index] !== null) {
-    return list[index];
-  }
-  if (typeof d !== 'undefined') {
+  } else if (index < list.length) {
+    if (typeof list[index] !== 'undefined' && list[index] !== null) {
+      return list[index];
+    }
+  } else if (typeof d !== 'undefined') {
     return d;
   }
   return '';
@@ -47,13 +47,14 @@ module.exports = (data, cb) => {
           data.indexOf('failing') !== -1 ||
           data.indexOf('pending') !== -1) {
         passing = data.match(/(\d+ passing)/i)[0] || '';
-        failing = data.match(/(\d+ failing)/i)[0] || '';
+        // failing = data.match(/(\d+ failing)/i)[0] || '';
+        failing = returnIfNotEmpty(data.match(/(\d+ failing)/i), 0);
         pending = data.match(/(\d+ pending)/i)[0] || '';
         cb([
           passing,
           failing,
           pending,
-        ].join('\n'));
+        ].join(' '));
       }
     }
 
