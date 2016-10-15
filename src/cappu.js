@@ -4,7 +4,7 @@ const spawn = require('child_process').spawn;
 const growl = require('growl');
 const parser = require('./parser');
 
-module.exports = (options) => {
+module.exports = (options, cb) => {
   const main = options.cmd;
   const args = options.args;
   const logging = options.logging || true;
@@ -18,7 +18,11 @@ module.exports = (options) => {
     }
 
     parser(data, (results) => {
-      growl(`Test Complete:\n${results}`);
+      if (process.env.NODE_ENV !== 'test') {
+        growl(`Test Complete:\n${results}`);
+      } else {
+        cb();
+      }
     });
   });
 

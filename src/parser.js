@@ -13,6 +13,19 @@ let pass;
 let fail;
 let tests;
 
+function returnIfNotEmpty(list, index, d) {
+  if (typeof list !== 'undefined' && list !== null) {
+    return '';
+  }
+  if (typeof list[index] !== 'undefined' && list[index] !== null) {
+    return list[index];
+  }
+  if (typeof d !== 'undefined') {
+    return d;
+  }
+  return '';
+}
+
 module.exports = (data, cb) => {
   if (!detected) {
     if (data.indexOf('mocha') !== -1) {
@@ -49,13 +62,27 @@ module.exports = (data, cb) => {
       if (data.indexOf('# tests') !== -1 ||
           data.indexOf('# pass') !== -1 ||
           data.indexOf('# fail') !== -1) {
-        tests = data.match(/(\# tests \d+)/i)[0] || '0';
-        pass = data.match(/(\# pass \d+)/i)[0] || '0';
-        fail = data.match(/(\# fail \d+)/i)[0] || '0';
+        console.log(data.match(/(# tests \d+)/i));            
+        console.log(data);
+        // tests = returnIfNotEmpty(data.match(/(\# tests \d+)/i), 0, '0');
+        // pass = returnIfNotEmpty(data.match(/(\# pass \d+)/i), 0, '0');
+        // fail = returnIfNotEmpty(data.match(/(\# fail \d+)/i), 0, '0');
+
+        tests = data.match(/(# tests \d+)/i)[0];
+        pass = data.match(/(# pass \d+)/i)[0];
+        fail = data.match(/(# fail \d+)/i)[0];
+        // cb([
+        //   `Test: ${tests.split(' ')[2]}`,
+        //   `Pass: ${pass.split(' ')[2]}`,
+        //   `Fail: ${fail.split(' ')[2]}`,
+        // ].join('\n'));
+        console.log(tests);
+        console.log(pass);
+        console.log(fail);
         cb([
-          `Test: ${tests.split(' ')[2]}`,
-          `Pass: ${pass.split(' ')[2]}`,
-          `Fail: ${fail.split(' ')[2]}`,
+          `Test: ${tests}`,
+          `Pass: ${pass}`,
+          `Fail: ${fail}`,
         ].join('\n'));
       }
     }
