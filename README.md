@@ -2,6 +2,10 @@
 
 Trigger desktop notifications from JS testing frameworks, based on growl.
 
+[![Travis](https://img.shields.io/travis/paolord/cappu.svg)](https://travis-ci.org/paolord/cappu) 
+[![npm](https://img.shields.io/npm/v/cappu.svg?maxAge=2592000)](https://www.npmjs.com/package/cappu) 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/paolord/cappu/master/LICENSE)
+
 Specially useful when tests are ran inside a docker container.
 
 Works with the following testing frameworks and reporters:
@@ -53,4 +57,10 @@ CMD [ "npm", "run", "test:mocha" ]
 Run the test through the cappu command
 ```
 $ cappu npm test
+```
+
+## Tests
+Install docker before running:
+```
+$ npm test
 ```
