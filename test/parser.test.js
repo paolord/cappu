@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 
-const parser = require('../src/parser');
+const parser = require('../lib/parser');
 
 describe('Parser', () => {
   describe('#mocha', () => {

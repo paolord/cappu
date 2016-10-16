@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 
-const cli = require('../src/cli');
+const cli = require('../lib/cli');
 
 describe('CLI', () => {
   it('should return the correct arguments', () => {
