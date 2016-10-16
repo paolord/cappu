@@ -1,12 +1,14 @@
 {
   "name": "cappu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Trigger desktop notifications from JS testing frameworks",
   "main": "index.js",
   "scripts": {
     "build": "node_modules/.bin/babel src --out-dir lib",
     "pretest": "node_modules/.bin/babel src --out-dir lib",
-    "test": "NODE_ENV=test node_modules/.bin/_mocha --reporter spec --colors ./test/*.test.js"
+    "test": "NODE_ENV=test node_modules/.bin/_mocha --reporter spec --colors ./test/*.test.js",
+    "test:docker": "docker build -t test/cappu-test . && docker run -d test/cappu-test",
+    "test:demo": "node_modules/.bin/_mocha --reporter spec --colors ./test/demo/test.js"
   },
   "bin": {
     "cappu": "./bin/cappu.js"
