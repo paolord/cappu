@@ -11,5 +11,8 @@ node_js:
 services:
   - docker
 
+env:
+  - NODE_ENV=test
+
 script:
   - npm test
