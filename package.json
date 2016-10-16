@@ -6,9 +6,9 @@
   "scripts": {
     "build": "node_modules/.bin/babel src --out-dir lib",
     "pretest": "node_modules/.bin/babel src --out-dir lib",
-    "postinstall": "docker build -t test/cappu-test .",
+    "postinstall": "docker build -t test/cappu .",
     "test": "NODE_ENV=test node_modules/.bin/_mocha --compilers js:babel-core/register --reporter spec --colors --timeout 60000 ./test/*.test.js",
-    "test:docker": "docker run test/cappu-test",
+    "test:docker": "docker run test/cappu",
     "test:demo": "node_modules/.bin/_mocha --compilers js:babel-core/register --reporter spec --colors --timeout 20000 ./test/demo/test.js"
   },
   "bin": {
