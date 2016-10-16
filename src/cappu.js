@@ -19,6 +19,7 @@ module.exports = (options, cb) => {
 
     parser(data, (results) => {
       if (process.env.NODE_ENV !== 'test') {
+        console.log(`Test Complete:\n${results}`);
         growl(`Test Complete:\n${results}`);
       } else {
         console.log(results);
