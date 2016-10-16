@@ -21,6 +21,7 @@ module.exports = (options, cb) => {
       if (process.env.NODE_ENV !== 'test') {
         growl(`Test Complete:\n${results}`);
       } else {
+        console.log(results);
         cb();
       }
     });
