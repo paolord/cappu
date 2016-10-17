@@ -16,13 +16,11 @@ module.exports = (options, cb) => {
     if (logging) {
       console.log(data);
     }
-
+    console.log(data);
     parser(data, (results) => {
       if (process.env.NODE_ENV !== 'test') {
-        console.log(`Test Complete:\n${results}`);
         growl(`Test Complete:\n${results}`);
       } else {
-        console.log(results);
         cb();
       }
     });
