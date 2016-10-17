@@ -1,6 +1,6 @@
 {
   "name": "cappu",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Trigger desktop notifications from JS testing frameworks",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,8 @@
     "pretest": "node_modules/.bin/babel src --out-dir lib",
     "postinstall": "docker build -t test/cappu .",
     "test": "NODE_ENV=test node_modules/.bin/_mocha --compilers js:babel-core/register --reporter spec --colors --timeout 60000 ./test/*.test.js",
-    "test:docker": "docker run test/cappu",
-    "test:demo": "node_modules/.bin/_mocha --compilers js:babel-core/register --reporter spec --colors --timeout 20000 ./test/demo/test.js"
+    "test:docker": "docker run -v $(pwd):/usr/src/app -w /usr/src/app test/cappu",
+    "test:demo": "NODE_ENV=test node_modules/.bin/_mocha --compilers js:babel-core/register --reporter spec --colors --timeout 10000 ./test/demo/test.js"
   },
   "bin": {
     "cappu": "./bin/cappu.js"
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/paolord/cappu.git"
   },
-  "author": "Angelo Paolo Obispo <angelopaolo.obispo@gmail.com> (http://brentertz.com)",
+  "author": "Angelo Paolo Obispo <angelopaolo.obispo@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/paolord/cappu/issues"

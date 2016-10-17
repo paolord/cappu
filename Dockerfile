@@ -1,8 +1,3 @@
-FROM node:4
+FROM node:4.4.7-slim
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
-COPY . /usr/src/app
-
-CMD [ "npm", "run", "test:demo" ]
+ENTRYPOINT [ "npm", "run", "test:demo" ]
